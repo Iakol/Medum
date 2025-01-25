@@ -1,0 +1,71 @@
+
+services: # Описание всех контейнеров
+  rabbitmq: # RabbitMQ сервис
+    image: rabbitmq:3-management # Образ RabbitMQ с панелью управления
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     # RabbitMQ Protocol (для взаимодействия с сервисами)
+      - "15672:15672"   # Web-интерфейс RabbitMQ
+    environment: # Переменные окружения
+      RABBITMQ_DEFAULT_USER: user     # Логин для RabbitMQ
+      RABBITMQ_DEFAULT_PASS: password # Пароль для RabbitMQ
+    networks:
+      - app_network
+
+  redis-context:
+    image: redis
+    container_name: redis-context
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--save", "600", "1"]
+  
+  redis-cache:
+    image: redis
+    container_name: redis-cache
+    ports:
+      - "6380:6379"
+    command: ["redis-server", "--save", "600", "1"] # Сохранять каждые 5 минут
+
+  mediumapi: # Ваш первый сервис (например, микросервис)
+    build:
+      context: ./ # Путь к папке с Dockerfile для Service1
+      dockerfile: MediumApi/Dockerfile
+    container_name: mediumApicontainer
+    depends_on:
+      - rabbitmq # Этот сервис зависит от RabbitMQ
+    networks:
+      - app_network
+
+  mediumdatabasemanagerazureapi: # Второй сервис
+    build:
+      context: ./
+      dockerfile: MediumDataBaseManagerAzureApi/Dockerfile
+    container_name: mediumdatabasemanagerazureapicontainer
+    depends_on:
+      - rabbitmq
+    networks:
+      - app_network
+
+  mediummapperapi: # Третий сервис
+    build:
+      context: ./
+      dockerfile: MediumMapperApi/Dockerfile
+    container_name: mediummapperapicontainer
+    depends_on:
+      - rabbitmq
+    networks:
+      - app_network
+
+  mediumwritestoreapi: # Четвёртый сервис
+    build:
+      context: ./
+      dockerfile: MediumWriteStoreApi/Dockerfile
+    container_name: mediumwritestoreapicontainer
+    depends_on:
+      - rabbitmq
+    networks:
+      - app_network
+
+networks: # Определение общей сети для всех сервисов
+  app_network:
+    driver: bridge

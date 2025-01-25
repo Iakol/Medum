@@ -1,0 +1,9 @@
+@MediumWriteStoreApi_HostAddress = http://localhost:5058
+
+GET {{MediumWriteStoreApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+POST {{MediumWriteStoreApi_HostAddress}}/api/Link/CheckYoutubeLink?Link=https://www.youtube.com/watch?v=IheUhU1eSeM&list=RDBfkamZYqth8&index=6
+Accept: application/json
+

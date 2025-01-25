@@ -1,0 +1,6 @@
+@MediumMapperApi_HostAddress = http://localhost:5211
+
+GET {{MediumMapperApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
