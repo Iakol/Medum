@@ -1,4 +1,5 @@
 using MediumDataBaseManagerAzureApi.Data;
+using MediumDataBaseManagerAzureApi.Service.RabitMqGlobalData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSingleton<RabitMqGlobalDataClass>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
@@ -25,6 +27,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddOpenApi();
+
 
 var app = builder.Build();
 

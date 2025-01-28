@@ -42,5 +42,7 @@ namespace MediumWriteStoreApi.Service.RedisContexTimerListService
 
         }
 
+        public string getContextId => ContextStateId;
+
     }
 }

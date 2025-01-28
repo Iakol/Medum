@@ -2,6 +2,7 @@ using MediumWriteStoreApi.Middleware;
 using MediumWriteStoreApi.Service.AzureService;
 using MediumWriteStoreApi.Service.LinkService;
 using MediumWriteStoreApi.Service.RabitMQProducerService;
+using MediumWriteStoreApi.Service.RedisContexTimerListService;
 using MediumWriteStoreApi.Service.WebSocetServise;
 using MediumWriteStoreApi.Service.WebSocketDictionaryService;
 using StackExchange.Redis;
@@ -30,6 +31,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp => ConnectionMultiplexe
 builder.Services.AddSingleton<IRabitMQProducer, RabitMQProducer>();
 builder.Services.AddSingleton<WebSocketMessageHandler>();
 builder.Services.AddSingleton<IWebSocketDictionaryService, WebSocketDictionaryService>();
+builder.Services.AddSingleton<RedisContexTimerList>();
+
 
 builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddScoped<IAzureService, AzureService>();

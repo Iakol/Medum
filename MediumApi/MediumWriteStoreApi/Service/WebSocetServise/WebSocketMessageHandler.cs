@@ -1,4 +1,5 @@
-﻿using MediumWriteStoreApi.DTO.ContentStateDTO;
+﻿using MediumWriteStoreApi.DTO;
+using MediumWriteStoreApi.DTO.ContentStateDTO;
 using MediumWriteStoreApi.DTO.LinkDTO;
 using MediumWriteStoreApi.DTO.WebSocetDTO;
 using MediumWriteStoreApi.Service.AzureService;
@@ -67,9 +68,9 @@ namespace MediumWriteStoreApi.Service.WebSocetServise
 
             if (result.MessageType == WebSocketMessageType.Text)
             {
-                WebSocketMessageDTO message = JsonSerializer.Deserialize<WebSocketMessageDTO>(Encoding.UTF8.GetString(Response, 0, result.Count))!;
+                TempMessageDTO message = JsonSerializer.Deserialize<TempMessageDTO>(Encoding.UTF8.GetString(Response, 0, result.Count))!;
                 byte[] responseBytes;
-                WebSocketMessageDTO responseMessage = new WebSocketMessageDTO();
+                TempMessageDTO responseMessage = new TempMessageDTO();
                 if (sessionData.isConneced)
                 {
                     switch (message.Type)
@@ -118,7 +119,7 @@ namespace MediumWriteStoreApi.Service.WebSocetServise
                     switch (message.Type)
                     {
                         case "CreateWriteStory":
-                            var Reply = Encoding.UTF8.GetBytes(JsonSerializer.Serialize( new WebSocketMessageDTO { Type = "SetStoryIdForNewStory", Message = sessionData.ContentState.ContentState.id }));
+                            var Reply = Encoding.UTF8.GetBytes(JsonSerializer.Serialize( new TempMessageDTO { Type = "SetStoryIdForNewStory", Message = sessionData.ContentState.ContentState.id }));
 
                             await webSocket.SendAsync(new ArraySegment<byte>(Reply),WebSocketMessageType.Text, true, CancellationToken.None);
                             break;

@@ -22,9 +22,9 @@ namespace MediumWriteStoreApi.Service.RedisContexTimerListService
             _timerList.Add(newTimer);
         }
 
-        public void SaveContextAfterExpiredTime(string ContextStateId)
+        public async Task SaveContextAfterExpiredTime(string ContextStateId)
         {
-            ContentStateDTO contentStateDTO = _redisConnection.getContent(ContextStateId);
+            ContentStateDTO contentStateDTO = await _redisConnection.getContent(ContextStateId);
             _producer.sendMessage("saveConext", JsonSerializer.Serialize(contentStateDTO));
         }
 
@@ -32,6 +32,8 @@ namespace MediumWriteStoreApi.Service.RedisContexTimerListService
         {
             _timerList.FirstOrDefault(t => t.GetContextStateId.Equals(ContextStateId)).CancelTimer();
         }
+
+        public List<TimerWrapper> List => _timerList;
 
 
 

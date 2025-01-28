@@ -1,4 +1,5 @@
-﻿using MediumWriteStoreApi.DTO.ContentStateDTO;
+﻿using MediumWriteStoreApi.DTO;
+using MediumWriteStoreApi.DTO.ContentStateDTO;
 using MediumWriteStoreApi.DTO.WebSocetDTO;
 using MediumWriteStoreApi.Service.RabitMQProducerService;
 using MediumWriteStoreApi.Service.RedisConnectionService;
@@ -67,7 +68,8 @@ namespace MediumWriteStoreApi.Service.WebSocketDictionaryService
 
             SessionData data = _sessions[soket];
             data.ContentState.ContentState = content;
-            WebSocketMessageDTO reply = new WebSocketMessageDTO {
+            TempMessageDTO reply = new TempMessageDTO
+            {
                 Type ="ReconectAfterDisconect",
                 Message = ""
             };

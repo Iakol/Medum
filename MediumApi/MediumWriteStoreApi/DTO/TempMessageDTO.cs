@@ -1,6 +1,6 @@
-﻿namespace MediumWriteStoreApi.DTO.WebSocetDTO
+﻿namespace MediumWriteStoreApi.DTO
 {
-    public class WebSocketMessageDTO
+    public class TempMessageDTO
     {
         public string Type { get; set; }
         public string Message { get; set; }

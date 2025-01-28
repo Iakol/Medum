@@ -1,6 +1,7 @@
 ﻿using MediumWriteStoreApi.DTO.ContentStateDTO;
 using MediumWriteStoreApi.Service.RabitMQProducerService;
 using MediumWriteStoreApi.Service.RedisConnectionService;
+using MediumWriteStoreApi.Service.RedisContexTimerListService;
 using MediumWriteStoreApi.Service.WebSocketDictionaryService;
 using System.Net.WebSockets;
 
@@ -11,6 +12,7 @@ namespace MediumWriteStoreApi.Service.ContentState
         private readonly IRedisConnection _redisConnection;
         private readonly IRabitMQProducer _producer;
         private readonly IWebSocketDictionaryService _websocketDictionaryService;
+        private readonly RedisContexTimerList _redisContexTimerList;
 
         public ContentStateDTO SetChanges(ContentStateDTO content)
         {
@@ -20,14 +22,17 @@ namespace MediumWriteStoreApi.Service.ContentState
         public async Task SetContentById(WebSocket socet,string id)
         {
             ContentStateDTO? content;
-            content = await _redisConnection.GetContentAfterReconect(id);
-            if (content != null)
+            if (_redisContexTimerList.List.FirstOrDefault(t => t.getContextId == id) != null)
             {
+                content = await _redisConnection.GetContentAfterReconect(id);
+                if (content == null) 
+                {
+                    content = await _producer.GetContentStateFromBdOverRabit(id);
+                }
                 await _websocketDictionaryService.ReconectBindingWithContentStateAndSessionData(socet, content);
-
             }
             else {
-                content = new ContentStateDTO(); // Imitation ask from BD
+                content = await _producer.GetContentStateFromBdOverRabit(id);
                 await _websocketDictionaryService.ReconectBindingWithContentStateAndSessionData(socet, content);                           
             }
 
