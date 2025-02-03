@@ -1,6 +1,6 @@
 ﻿namespace MediumDataBaseManagerAzureApi.Service.ContentState
 {
-    public interface IContentState
+    public interface IContentStateService
     {
         public void GetContentStateById(string id);
         public void SaveContentStateById();

@@ -41,6 +41,8 @@ services: # Описание всех контейнеров
       context: ./
       dockerfile: MediumDataBaseManagerAzureApi/Dockerfile
     container_name: mediumdatabasemanagerazureapicontainer
+    ports:
+      - "7238:80"
     depends_on:
       - rabbitmq
     networks:

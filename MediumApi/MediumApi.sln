@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediumApi", "MediumApi\MediumApi.csproj", "{0EB45D16-9620-4D46-B4E0-5D3B71D2177D}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediumDataBaseManagerAzureApi", "MediumDataBaseManagerAzureApi\MediumDataBaseManagerAzureApi.csproj", "{0DE31372-EED1-4243-B6B9-EEEA4BD1D24A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediumWriteStoreApi", "MediumWriteStoreApi\MediumWriteStoreApi.csproj", "{0DF485E1-24CB-4EF9-A693-106281D93DBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediumAuthorizeApi", "MediumAuthorizeApi\MediumAuthorizeApi.csproj", "{364E9C3A-3BF1-4518-A7FA-E22300B36552}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0DF485E1-24CB-4EF9-A693-106281D93DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DF485E1-24CB-4EF9-A693-106281D93DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DF485E1-24CB-4EF9-A693-106281D93DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{364E9C3A-3BF1-4518-A7FA-E22300B36552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{364E9C3A-3BF1-4518-A7FA-E22300B36552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{364E9C3A-3BF1-4518-A7FA-E22300B36552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{364E9C3A-3BF1-4518-A7FA-E22300B36552}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
