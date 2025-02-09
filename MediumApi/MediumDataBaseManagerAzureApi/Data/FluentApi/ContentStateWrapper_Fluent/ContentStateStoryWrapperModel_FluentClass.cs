@@ -16,7 +16,7 @@ namespace MediumDataBaseManagerAzureApi.Data.FluentApi.ContentStateWrapper_Fluen
             builder.HasOne(x => x.ContentState).WithOne().HasForeignKey<ContentStateStoryWrapperModel>(c => c.Id);
             builder.HasOne(w => w.StoryCreator).WithMany(w => w.UserStories).HasForeignKey(c => c.StoryCreatorId);
             builder.HasMany(w => w.topics).WithMany(t => t.Stories).UsingEntity<TopicToStoryConectorModel>();
-            builder.HasMany(w => w.Authors).WithMany().UsingEntity<StoryToAuthorsConectorModel>();
+            //builder.HasMany(w => w.Authors).WithMany().UsingEntity<StoryToAuthorsConectorModel>();
 
             // Other Configuration
         }

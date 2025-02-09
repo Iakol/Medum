@@ -18,12 +18,12 @@ namespace MediumDataBaseManagerAzureApi.Data.FluentApi.User_Fluent
             builder.HasOne(u => u.User).WithOne(u => u.UserWrapper).HasForeignKey<UserWrapper>(u => u.UserId);
 
             
-            builder.HasMany(u => u.ReadingList).WithMany().UsingEntity<ReadingList_UserWrapperToStoryId>();
+            //builder.HasMany(u => u.ReadingList).WithMany().UsingEntity<ReadingList_UserWrapperToStoryId>();
             //UserStories in Story Wrapper FluentClass
 
             //User Profile Cred
             builder.HasOne(u => u.UserMemberShip).WithOne(m => m.UserWrapper).HasForeignKey<UserMemberShipModel>(m => m.UserWrapperId);
-            builder.HasOne(u => u.Profile).WithOne(m => m.User).HasForeignKey<UserProfile>(m => m.UserId);
+            builder.HasOne(u => u.Profile).WithOne(m => m.User).HasForeignKey<UserProfile>(m => m.UserWrapperId);
             // AboutContent in describe in AboutContent FluentClass
 
             //UUser to Folow

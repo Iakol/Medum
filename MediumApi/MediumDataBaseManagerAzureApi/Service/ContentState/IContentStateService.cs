@@ -1,8 +1,10 @@
-﻿namespace MediumDataBaseManagerAzureApi.Service.ContentState
+﻿using MediumDataBaseManagerAzureApi.Models.ContentState;
+
+namespace MediumDataBaseManagerAzureApi.Service.ContentState
 {
     public interface IContentStateService
     {
-        public void GetContentStateById(string id);
+        public Task<ContentStateModel> GetContentStateById(string id);
         public void SaveContentStateById();
 
         public void SaveContentStateByIdInRedis();

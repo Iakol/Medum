@@ -77,7 +77,7 @@ namespace MediumDataBaseManagerAzureApi.Service.RabitMqGlobalData
             consumer.ReceivedAsync += async (ch, ea) => 
             {
                 var body = ea.Body.ToArray();
-                await _Mediator.Handler(body);
+                await _Mediator.Handler(body, ea.BasicProperties);
                 await ToAddchanel.BasicAckAsync(ea.DeliveryTag, false);
             };
             await ToAddchanel.BasicConsumeAsync(QueueName, false, consumer);

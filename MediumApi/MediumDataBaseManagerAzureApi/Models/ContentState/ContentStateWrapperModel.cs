@@ -1,4 +1,5 @@
-﻿using MediumDataBaseManagerAzureApi.Models.Topic;
+﻿using MediumDataBaseManagerAzureApi.Models.ManyToMany;
+using MediumDataBaseManagerAzureApi.Models.Topic;
 using MediumDataBaseManagerAzureApi.Models.User;
 
 namespace MediumDataBaseManagerAzureApi.Models.ContentState
@@ -14,7 +15,7 @@ namespace MediumDataBaseManagerAzureApi.Models.ContentState
         public UserWrapper StoryCreator { get; set; } //Model Usera
         public string StoryCreatorId { get; set; } //Model Usera
 
-        public List<UserWrapper> Authors{ get; set; } // Model Users
+        public List<StoryToAuthorsConectorModel> Authors{ get; set; } // Model Users
 
         public DateTime CreateTime { get; set; } = DateTime.Now;
         public DateTime SaveLastUpdateTime { get; set; }

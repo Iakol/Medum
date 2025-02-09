@@ -1,10 +1,12 @@
-﻿namespace MediumDataBaseManagerAzureApi.Service.ContentState
+﻿using MediumDataBaseManagerAzureApi.Models.ContentState;
+
+namespace MediumDataBaseManagerAzureApi.Service.ContentState
 {
     public class ContentStateService : IContentStateService
     {
-        public void GetContentStateById(string id)
+        public async Task<ContentStateModel> GetContentStateById(string id)
         {
-            throw new NotImplementedException();
+            return new ContentStateModel();
         }
 
         public void SaveContentStateById()
