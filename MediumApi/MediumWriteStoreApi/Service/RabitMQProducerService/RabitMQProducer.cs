@@ -54,6 +54,9 @@ namespace MediumWriteStoreApi.Service.RabitMQProducerService
             var tcs = new TaskCompletionSource<string>();
             var consumer = new AsyncEventingBasicConsumer(_retriveChannel);
 
+            string ConsumerID = await _retriveChannel.BasicConsumeAsync("retriveContentStateQueue", autoAck: false, consumer: consumer);
+
+
             consumer.ReceivedAsync += async(ch, ea) =>
                 {
                     if (ea.BasicProperties.CorrelationId!.Equals(CorelationId)) 
@@ -62,9 +65,16 @@ namespace MediumWriteStoreApi.Service.RabitMQProducerService
                         ea.Body.CopyTo(ResponsemessageBytes);
 
                         tcs.SetResult(Encoding.UTF8.GetString(ResponsemessageBytes));
-                    }
+                        await consumer.HandleBasicCancelAsync(ConsumerID);
+                    } 
             
                 };
+
+            await _sendChannel.BasicPublishAsync(exchange: "",
+                              routingKey: requestQueue,
+                              true,
+                              basicProperties: props,
+                              body: messageBytes);
 
 
             return await tcs.Task;

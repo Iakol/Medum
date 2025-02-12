@@ -8,7 +8,6 @@ namespace MediumDataBaseManagerAzureApi.Service.RebitMqConsumer
     {
         private RabitMqGlobalDataClass _rabitWrapper;        
         private string retriveQueue = "ContentStateRequestQueue";
-        private string sendQueue = "ContentStateQueueForMapping";
 
         public RebitMqGetContentStateConsumerService(RabitMqGlobalDataClass rabitWrapper) 
         {
@@ -19,7 +18,6 @@ namespace MediumDataBaseManagerAzureApi.Service.RebitMqConsumer
         public async Task StartHeandleMessage()
         {
             await _rabitWrapper.CreateConsumerForChanelToQueue(await _rabitWrapper.GetRetriveChannelChannelToRabit(), retriveQueue);
-            await _rabitWrapper.CreateNewQueueForChanel(await _rabitWrapper.GetSendChannelToRabit(), sendQueue);
         }
     }
 }

@@ -44,9 +44,13 @@ namespace MediumAuthorizeApi.Services.Indentity
         }
 
 
-        public Task<string> RegsterUser(RegisterCredDTO cred)
+        public async Task<string> RegsterUser(RegisterCredDTO cred)
         {
-            throw new NotImplementedException();
+            User userToAdd = new User();
+            userToAdd.UserName = cred.Email;
+            userToAdd.Email = cred.Email;
+            var res = await _userManager.CreateAsync(userToAdd,cred.Password);
+            return await LoginAndReturnJWT(new AuthorizeCredDTO { Email = cred.Email,Password = cred.Password });
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using MediumDataBaseManagerAzureApi.DTO.TempMessage;
-using MediumDataBaseManagerAzureApi.Service.RabitMqMediator;
-using MediumDataBaseManagerAzureApi.Service.RabitMqProducerWraper;
+﻿using MediumMapperApi.DTO.TempMessage;
+using MediumMapperApi.Service.RabitMqMediator;
+using MediumMapperApi.Service.RabitMqProducerWraper;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Channels;
 
-namespace MediumDataBaseManagerAzureApi.Service.RabitMqGlobalData
+namespace MediumMapperApi.Service.RabitMqGlobalData
 {
     public class RabitMqGlobalDataClass
     {
