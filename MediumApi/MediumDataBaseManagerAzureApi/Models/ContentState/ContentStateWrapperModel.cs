@@ -12,6 +12,7 @@ namespace MediumDataBaseManagerAzureApi.Models.ContentState
         public string Id { get; set; }
         public ContentStateModel ContentState { get; set; }
 
+         
         public UserWrapper StoryCreator { get; set; } //Model Usera
         public string StoryCreatorId { get; set; } //Model Usera
 

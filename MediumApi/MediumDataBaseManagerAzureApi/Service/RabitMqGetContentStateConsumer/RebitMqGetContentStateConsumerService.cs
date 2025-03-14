@@ -14,7 +14,6 @@ namespace MediumDataBaseManagerAzureApi.Service.RebitMqConsumer
             _rabitWrapper = rabitWrapper;
         }
 
-
         public async Task StartHeandleMessage()
         {
             await _rabitWrapper.CreateConsumerForChanelToQueue(await _rabitWrapper.GetRetriveChannelChannelToRabit(), retriveQueue);

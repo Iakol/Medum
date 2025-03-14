@@ -6,5 +6,7 @@ namespace MediumMapperApi.Service.ContentState
     public interface IContentState
     {
         public ContentStateModel ContentStateDtoToBaze(ContentStateDTO dTO);
+        public ContentStateDTO ContentBazeToStateDto(ContentStateModel baseModel);
+
     }
 }

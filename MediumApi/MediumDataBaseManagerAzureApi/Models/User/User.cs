@@ -8,5 +8,7 @@ namespace MediumDataBaseManagerAzureApi.Models.User
         public string UserWrapperId { get; set; }
         public UserWrapper UserWrapper { get; set; }
 
+        public string Tag { get; set; } // nedd migrate
+
     }
 }
