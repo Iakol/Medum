@@ -1,11 +1,24 @@
-﻿using MediumDataBaseManagerAzureApi.Models.ContentState;
+﻿using MediumDataBaseManagerAzureApi.Data;
+using MediumDataBaseManagerAzureApi.DTO.ContentStateDTO;
+using MediumDataBaseManagerAzureApi.Models.ContentState;
+using Microsoft.EntityFrameworkCore;
 
-namespace MediumDataBaseManagerAzureApi.Service.ContentState
+namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState
 {
-    public class ContentStateService : IContentStateService
+    public class ContentStateService(AppDbContext _db) : IContentStateService
     {
+
         public async Task<ContentStateModel> GetContentStateById(string id)
         {
+            ContentStateModel ContentState = await _db.ContentStates.FirstOrDefaultAsync(c => c.Id.Equals(id));
+
+            ContentState.blocks = new blo();
+            ContentState.blocks = new blocks();
+
+
+
+
+
             return new ContentStateModel();
         }
 
@@ -25,9 +38,9 @@ namespace MediumDataBaseManagerAzureApi.Service.ContentState
             throw new NotImplementedException();
         }
 
-        
 
-        public void SaveContentStateByIdInDataBase()
+
+        public Task SaveContentStateByIdInDataBase(ContentStateDTO content)
         {
             throw new NotImplementedException();
         }

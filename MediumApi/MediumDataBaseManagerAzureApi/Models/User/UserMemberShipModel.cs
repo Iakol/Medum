@@ -1,4 +1,6 @@
-﻿namespace MediumDataBaseManagerAzureApi.Models.User
+﻿using MediumDataBaseManagerAzureApi.Enum;
+
+namespace MediumDataBaseManagerAzureApi.Models.User
 {
     public class UserMemberShipModel
     {
@@ -6,7 +8,7 @@
         public UserWrapper UserWrapper { get; set; }
 
         public bool isActive { get; set; } = false;
-        public string Type { get; set; } = "Base";
+        public UserMemberShipTypeEnum Type { get; set; } 
         public DateTime? StartAt { get; set; }
         public DateTime? EndAt { get; set; }
     }

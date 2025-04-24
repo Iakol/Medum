@@ -13,7 +13,7 @@ namespace MediumDataBaseManagerAzureApi.Data.FluentApi.ContentStateWrapper_Fluen
             // Propetries
             // Relationship
             builder.HasOne(w => w.User).WithOne(u => u.AboutContent).HasForeignKey<ContentStateAboutUserWrapperModel>(w => w.UserId);
-            builder.HasOne(w => w.ContentStateModelAboutUser).WithOne().HasForeignKey<ContentStateAboutUserWrapperModel>(w => w.ContentStateModelAboutUserId);
+            builder.HasOne(w => w.ContentStateModelAboutUser).WithOne().HasForeignKey<ContentStateAboutUserWrapperModel>(w => w.Id);
             // Other Configuration
         }
     }

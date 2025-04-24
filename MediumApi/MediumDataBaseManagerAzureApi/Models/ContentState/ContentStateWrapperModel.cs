@@ -12,11 +12,11 @@ namespace MediumDataBaseManagerAzureApi.Models.ContentState
         public string Id { get; set; }
         public ContentStateModel ContentState { get; set; }
 
-         
+
         public UserWrapper StoryCreator { get; set; } //Model Usera
         public string StoryCreatorId { get; set; } //Model Usera
 
-        public List<StoryToAuthorsConectorModel> Authors{ get; set; } // Model Users
+        public List<StoryToAuthorsConectorModel> Authors { get; set; } // Model Users
 
         public DateTime CreateTime { get; set; } = DateTime.Now;
         public DateTime SaveLastUpdateTime { get; set; }
@@ -24,7 +24,9 @@ namespace MediumDataBaseManagerAzureApi.Models.ContentState
         public string Status { get; set; } // Private Public Draft Created
 
         public List<TopicModel> topics { get; set; }
-        
 
-    }
+        public List<ReadersModel> ReaderList { get; set; }
+
+
+}
 }

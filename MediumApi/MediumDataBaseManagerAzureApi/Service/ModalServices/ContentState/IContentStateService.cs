@@ -1,6 +1,7 @@
-﻿using MediumDataBaseManagerAzureApi.Models.ContentState;
+﻿using MediumDataBaseManagerAzureApi.DTO.ContentStateDTO;
+using MediumDataBaseManagerAzureApi.Models.ContentState;
 
-namespace MediumDataBaseManagerAzureApi.Service.ContentState
+namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState
 {
     public interface IContentStateService
     {
@@ -8,7 +9,7 @@ namespace MediumDataBaseManagerAzureApi.Service.ContentState
         public void SaveContentStateById();
 
         public void SaveContentStateByIdInRedis();
-        public void SaveContentStateByIdInDataBase();
+        public Task SaveContentStateByIdInDataBase(ContentStateDTO content);
 
 
 

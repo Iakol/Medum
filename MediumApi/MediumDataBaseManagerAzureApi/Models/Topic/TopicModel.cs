@@ -7,8 +7,6 @@ namespace MediumDataBaseManagerAzureApi.Models.Topic
     {
         public string TopicId { get; set; }
         public string Name { get; set; }
-        public List<string> Users { get; set; }
-
         public List<ContentStateStoryWrapperModel> Stories { get; set; }
 
     }

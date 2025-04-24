@@ -1,6 +1,6 @@
 ﻿using MediumDataBaseManagerAzureApi.DTO.TempMessage;
 using MediumDataBaseManagerAzureApi.Models.ContentState;
-using MediumDataBaseManagerAzureApi.Service.ContentState;
+using MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState;
 using MediumDataBaseManagerAzureApi.Service.RabitMqProducerWraper;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -21,6 +21,11 @@ namespace MediumDataBaseManagerAzureApi.Service.RabitMqMediator
                 case "GetContentState":
                     ContentStateModel content = await _contentStateService.GetContentStateById(messageDTO.Message);
                     
+                    await _Producer.SendContentStateToMappper(content, props);
+                    break;
+                case "SaveContentState":
+                    ContentStateModel content = await _contentStateService.GetContentStateById(messageDTO.Message);
+
                     await _Producer.SendContentStateToMappper(content, props);
                     break;
                 default:
