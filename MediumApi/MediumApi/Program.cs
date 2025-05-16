@@ -1,3 +1,6 @@
+using MediumApi.RabbitMQCover;
+using MediumApi.Service.ConccurentDictonryForReplyTask;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +20,10 @@ builder.Services.AddSwaggerGen(options =>
 
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddSingleton<IConccurentDictonryForReplyTask, ConccurentDictonryForReplyTask>();
+builder.Services.AddSingleton<RabitMqGlobalDataClass>();
+builder.Services.AddHostedService<RabitMqConsumerBackGroundService>();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();

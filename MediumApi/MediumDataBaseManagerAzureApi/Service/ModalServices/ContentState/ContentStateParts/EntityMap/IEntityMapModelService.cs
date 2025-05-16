@@ -9,6 +9,8 @@ namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.Conte
         public Task DeleteEntityMap(EntityMapModel mapModel);
 
         public Task<List<EntityMapModel>> GetEntityMapListForContentState(string ContentStateId);
+        public Task<Dictionary<string,EntityMapDTO>> GetEntityMapFullDictonaryForContentState(string ContentStateId);
+
 
         public Task UpdateEntityMap(KeyValuePair<string, EntityMapDTO> EntityMap, string ContentStateId);
 

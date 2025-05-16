@@ -1,30 +1,35 @@
 ﻿using MediumDataBaseManagerAzureApi.Data;
 using MediumDataBaseManagerAzureApi.DTO.ContentStateDTO;
 using MediumDataBaseManagerAzureApi.Models.ContentState;
+using MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.ContentStateParts.Block;
+using MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.ContentStateParts.EntityMap;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState
 {
-    public class ContentStateService(AppDbContext _db) : IContentStateService
+    public class ContentStateService(AppDbContext _db, IBlockModelService _blockService,IEntityMapModelService _entityMapService) : IContentStateService
     {
 
-        public async Task<ContentStateModel> GetContentStateById(string id)
+        public async Task<ContentStateDTO> GetContentStateById(string id)
         {
-            ContentStateModel ContentState = await _db.ContentStates.FirstOrDefaultAsync(c => c.Id.Equals(id));
+            if (_db.ContentStates.Any(c => c.Id.Equals(id))) 
+            {
+                ContentStateDTO ContentState = new ContentStateDTO {
+                    id = id,
+                    changeCommitTime = DateTime.UtcNow,
+                    blocks = await _blockService.GetBlockListByStory(id),
+                    entityMap = await _entityMapService.GetEntityMapFullDictonaryForContentState(id),
 
-            ContentState.blocks = new blo();
-            ContentState.blocks = new blocks();
-
-
-
-
-
-            return new ContentStateModel();
+                };
+                return ContentState;
+            }
+            throw new NotImplementedException();
         }
 
-        public void SaveContentStateById()
+        public async Task SaveContentStateById(ContentStateDTO contentState)
         {
-            throw new NotImplementedException();
+
         }
 
 

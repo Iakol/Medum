@@ -1,4 +1,4 @@
-﻿namespace MediumDataBaseManagerAzureApi.DTO.ContentStateDTO
+﻿namespace MediumApi.DTO.StoryDTO.ContentStateDTO
 {
     public class EntityMapDTO
     {

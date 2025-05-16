@@ -13,7 +13,7 @@ namespace MediumDataBaseManagerAzureApi.Models.User
 
         public List<ContentStateStoryWrapperModel> UserStories { get; set; }
 
-        public List<ContentStateStoryWrapperModel> ReadingList { get; set; }
+        public List<UserReadingList> ReadingLists { get; set; }
 
         public UserMemberShipModel UserMemberShip { get; set; }
         public string Tag { get; set; } // nedd migrate

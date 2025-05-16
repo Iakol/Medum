@@ -1,9 +1,13 @@
-﻿namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
+﻿using MediumDataBaseManagerAzureApi.Models.User;
+
+namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
 {
     public class ReadingList_UserWrapperToStoryId
     {
         public int Id { get; set; }
-        public string StoryId { get; set; }
-        public string UserId { get; set; }
+        public string SaveStoryInListId { get; set; }
+        public int UserReadingListId { get; set; }
+        public UserReadingList userReadingList { get; set; }
+        public string UserNoteForSaveStory { get; set; }
     }
 }

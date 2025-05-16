@@ -8,6 +8,7 @@ using MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.ContentSt
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.ContentStateParts.Block
 {
@@ -60,19 +61,63 @@ namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.Conte
 
         }
 
-        public Task<BlockDTO> GetBlock(string ContentStateId)
+        public async Task<BlockDTO> GetBlock(string BlockKey,string ContentStateId)
         {
-            
+            BlockModel block = await _db.Blocks.FirstOrDefaultAsync(b => b.key.Equals(BlockKey) && b.ContentStateId.Equals(ContentStateId));
+
+            return new BlockDTO
+            {
+                key = block.key,
+                text = block.text,
+                type = block.type,
+                depth = block.depth,
+                inlineStyleRanges = await _inlineStylesRangeService.GetInlineStylesRangeModelByBlock(block.Id),
+                entityRanges = await _entityRangeModelService.GetEntityRangeModelListByBlock(block.Id),
+                data = await _dictonaryDataInBlockModelService.GetDictonaryDataInBlockModel(block.Id)
+            };
         }
 
-        public Task<List<BlockModel>> GetBlockListByStory(string ContentStateId, int id)
+        public async Task<List<BlockDTO>> GetBlockListByStory(string ContentStateId)
         {
-            throw new NotImplementedException();
+            var blocs = await _db.Blocks.Where(b => b.ContentStateId.Equals(ContentStateId)).ToListAsync();
+            var blocksDtoTasks = blocs.Select(async b => 
+            {
+                var inlinetRangesList = await _inlineStylesRangeService.GetInlineStylesRangeModelByBlock(b.Id);
+                var entityRanges = await _entityRangeModelService.GetEntityRangeModelListByBlock(b.Id);
+                var data = await _dictonaryDataInBlockModelService.GetDictonaryDataInBlockModel(b.Id);
+                return new BlockDTO
+                {
+                    key = b.key,
+                    text = b.text,
+                    type = b.type,
+                    depth = b.depth,
+                    inlineStyleRanges = inlinetRangesList,
+                    entityRanges = entityRanges,
+                    data = data
+                };
+
+            });
+
+            var blockDtos = await Task.WhenAll(blocksDtoTasks);
+
+            return blockDtos.ToList();
         }
 
-        public Task UpdateBlockModel(BlockDTO block)
+        public async Task UpdateBlockModel(BlockDTO block, string ContentStateId)
         {
-            throw new NotImplementedException();
+            BlockModel blockToUpdate = await _db.Blocks.FirstOrDefaultAsync(b => b.key.Equals(block.key) && b.ContentStateId.Equals(ContentStateId));
+
+            blockToUpdate.text = block.text;
+            blockToUpdate.type = block.type;
+            blockToUpdate.depth = block.depth;
+            await _inlineStylesRangeService.UpdateInlineStylesRangeModelInBlock(block.inlineStyleRanges, blockToUpdate.Id);
+            await _entityRangeModelService.UpSetEntityRangeModelListForBlockModel(block.entityRanges, blockToUpdate.Id);
+            await _dictonaryDataInBlockModelService.UpdateDictonaryInBlockModel(block.data, blockToUpdate.Id);
+
         }
+
+
+
+
     }
 }

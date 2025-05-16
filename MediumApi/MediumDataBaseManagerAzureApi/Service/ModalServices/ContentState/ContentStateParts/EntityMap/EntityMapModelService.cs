@@ -36,18 +36,12 @@ namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.Conte
             }
         }
 
-        public Task DeleteEntityMap(EntityMapModel mapModel)
+        public async Task DeleteEntityMap(EntityMapModel mapModel)
         {
             _db.Remove(mapModel);
-            return Task.CompletedTask;
         }
 
-        public Task<List<EntityMapModel>> GetEntityMapListForContentState(string ContentStateId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SaveEntityMapDictonary(Dictionary<string, EntityMapDTO> EntityDictonary, string ContentStateId)
+        public async Task SaveEntityMapDictonary(Dictionary<string, EntityMapDTO> EntityDictonary, string ContentStateId)
         {
             List<EntityMapModel> entityList = _db.EntityMaps.Where(e => e.ContentStateKey.Equals(ContentStateId)).ToList();
 
@@ -69,7 +63,33 @@ namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.Conte
 
             _db.RemoveRange(entityList.Where(e => !EntityDictonary.ContainsKey(e.DictonaryKey)));
 
-            return Task.CompletedTask;
+        }
+
+        public Task<List<EntityMapModel>> GetEntityMapListForContentState(string ContentStateId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Dictionary<string, EntityMapDTO>> GetEntityMapFullDictonaryForContentState(string ContentStateId)
+        {
+            List<EntityMapModel> EntityMaps = _db.EntityMaps.Where(e => e.ContentStateKey.Equals(ContentStateId)).ToList();
+
+            Dictionary<string, EntityMapDTO> dictonarToReturn = new Dictionary<string, EntityMapDTO>();
+
+            var EntityMapsTasks = EntityMaps.Select(async e => 
+            {
+
+                dictonarToReturn.Add(e.DictonaryKey, new EntityMapDTO 
+                {
+                    type = e.type,
+                    mutability = e.mutability,
+                    data = e.data,
+                });
+            });
+
+            await Task.WhenAll(EntityMapsTasks);
+
+            return dictonarToReturn;
 
         }
     }

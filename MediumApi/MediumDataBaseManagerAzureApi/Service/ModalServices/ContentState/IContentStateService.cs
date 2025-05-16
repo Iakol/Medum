@@ -5,8 +5,8 @@ namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState
 {
     public interface IContentStateService
     {
-        public Task<ContentStateModel> GetContentStateById(string id);
-        public void SaveContentStateById();
+        public Task<ContentStateDTO> GetContentStateById(string id);
+        public Task SaveContentStateById(ContentStateDTO contentState);
 
         public void SaveContentStateByIdInRedis();
         public Task SaveContentStateByIdInDataBase(ContentStateDTO content);

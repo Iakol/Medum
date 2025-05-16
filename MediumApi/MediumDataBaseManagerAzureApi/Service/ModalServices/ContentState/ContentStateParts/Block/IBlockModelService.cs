@@ -7,9 +7,9 @@ namespace MediumDataBaseManagerAzureApi.Service.ModalServices.ContentState.Conte
     {
         public Task CreateBlockModel(BlockDTO block, string ContentStateId);
         public Task DeleteBlockModel(int BlockId);
-        public Task UpdateBlockModel(BlockDTO block);
-        public Task<BlockDTO> GetBlock(string ContentStateId);
-        public Task<List<BlockDTO>> GetBlockListByStory(string ContentStateId, int id );
+        public Task UpdateBlockModel(BlockDTO block, string ContentStateId);
+        public Task<BlockDTO> GetBlock(string BlockKey, string ContentStateId);
+        public Task<List<BlockDTO>> GetBlockListByStory(string ContentStateId );
 
 
     }

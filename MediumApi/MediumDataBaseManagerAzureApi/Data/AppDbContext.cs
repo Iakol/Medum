@@ -22,6 +22,8 @@ namespace MediumDataBaseManagerAzureApi.Data
         public DbSet<UserMemberShipModel> UserMemberShips { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<UserWrapper> UserWrappers { get; set; }
+        public DbSet<UserReadingList> UsersReadingLists { get; set; }
+
         public DbSet<TopicModel> Topics{ get; set; }
         public DbSet<TopicToStoryConectorModel> TopicToStoryConectors { get; set; }
         public DbSet<StoryToAuthorsConectorModel> StoryToAuthorsConectors { get; set; }
@@ -53,6 +55,9 @@ namespace MediumDataBaseManagerAzureApi.Data
             modelBuilder.ApplyConfiguration(new ContentStateStoryWrapperModel_FluentClass());
             modelBuilder.ApplyConfiguration(new UserWrapper_FluentClass());
             modelBuilder.ApplyConfiguration(new User_FluentClass());
+            modelBuilder.ApplyConfiguration(new UserReadingList_FluentClass());
+
+            
             modelBuilder.ApplyConfiguration(new TopicModel_FluentClass());
 
             modelBuilder.ApplyConfiguration(new ReadingList_UserWrapperToStoryId_FluentClass());
