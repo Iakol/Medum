@@ -1,4 +1,5 @@
-﻿using MediumDataBaseManagerAzureApi.Models.ContentState;
+﻿using MediumDataBaseManagerAzureApi.Enum;
+using MediumDataBaseManagerAzureApi.Models.ContentState;
 using MediumDataBaseManagerAzureApi.Models.FollowClass;
 
 namespace MediumDataBaseManagerAzureApi.Models.Topic
@@ -8,6 +9,7 @@ namespace MediumDataBaseManagerAzureApi.Models.Topic
         public string TopicId { get; set; }
         public string Name { get; set; }
         public List<ContentStateStoryWrapperModel> Stories { get; set; }
+        public TopicVerifyEnum VerifyFlag { get; set; }
 
     }
 }

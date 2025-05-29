@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediumDataBaseManagerAzureApi.Models.ManyToMany.ReadingListManyToMany;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
@@ -12,18 +13,16 @@ namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
         // Propetries
         // Relationship
 
+            //Link To save Story in LIst
+
+            builder.HasOne(sh => sh.SaveStoryInList).WithMany().HasForeignKey(x => x.SaveStoryInListId);
+
+            //Link UserReadingListId
+
+            builder.HasOne(sh => sh.userReadingList).WithMany(rl => rl.SaveStoryInList).HasForeignKey(x => x.UserReadingListId);
 
 
-
-        //UserStories in Story Wrapper FluentClass
-
-        //User Profile Cred
-        // AboutContent in describe in AboutContent FluentClass
-
-        //UUser to Folow
-
-
-        // Other Configuration
+            // Other Configuration
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediumDataBaseManagerAzureApi.Models.ManyToMany.TopicManyToMany;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MediumDataBaseManagerAzureApi.Models.ManyToMany

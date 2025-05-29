@@ -1,4 +1,7 @@
-﻿using MediumDataBaseManagerAzureApi.Models.ManyToMany;
+﻿using MediumDataBaseManagerAzureApi.Enum;
+using MediumDataBaseManagerAzureApi.Models.ManyToMany.Read;
+using MediumDataBaseManagerAzureApi.Models.ManyToMany.ReadingListManyToMany;
+using MediumDataBaseManagerAzureApi.Models.ManyToMany.StoryWrapperManyToMany;
 using MediumDataBaseManagerAzureApi.Models.Topic;
 using MediumDataBaseManagerAzureApi.Models.User;
 
@@ -21,12 +24,14 @@ namespace MediumDataBaseManagerAzureApi.Models.ContentState
         public DateTime CreateTime { get; set; } = DateTime.Now;
         public DateTime SaveLastUpdateTime { get; set; }
 
-        public string Status { get; set; } // Private Public Draft Created
+        public StoryStatusEnum Status { get; set; } // Private Public Draft Created
 
         public List<TopicModel> topics { get; set; }
 
-        public List<ReadersModel> ReaderList { get; set; }
+        public List<ReadersModel> ReaderOfStory { get; set; }
+
+        public List<Responce> ResponceOfStory { get; set; }
 
 
-}
+    }
 }

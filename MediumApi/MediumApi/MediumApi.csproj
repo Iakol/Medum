@@ -21,11 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="DTO\ReadingHistoryDTO\" />
-    <Folder Include="DTO\ReadingListDTO\" />
     <Folder Include="DTO\StatsDTO\" />
-    <Folder Include="Service\ReadingHistory\" />
-    <Folder Include="Service\ReadingList\" />
     <Folder Include="Service\Stats\" />
   </ItemGroup>
 

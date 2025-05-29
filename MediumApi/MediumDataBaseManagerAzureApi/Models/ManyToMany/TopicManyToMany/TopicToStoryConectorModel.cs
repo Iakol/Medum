@@ -1,7 +1,7 @@
 ﻿using MediumDataBaseManagerAzureApi.Models.ContentState;
 using MediumDataBaseManagerAzureApi.Models.Topic;
 
-namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
+namespace MediumDataBaseManagerAzureApi.Models.ManyToMany.TopicManyToMany
 {
     public class TopicToStoryConectorModel
     {

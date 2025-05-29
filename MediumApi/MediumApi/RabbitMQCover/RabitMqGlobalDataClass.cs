@@ -94,6 +94,20 @@ namespace MediumApi.RabbitMQCover
 
         }
 
+        public async Task<string> DataBaseCommonRequest(string Message,string ReplyQueue,string RoutingKey) 
+        {
+            TaskCompletionSource<string> task = new TaskCompletionSource<string>();
+            BasicProperties properties = new BasicProperties();
+            properties.CorrelationId = Guid.NewGuid().ToString();
+            properties.ReplyTo = RoutingKey;
+
+            await _taskDictonaryService.Register(task, properties.CorrelationId);
+
+            await SendMessageWrapper(Message, RoutingKey, properties, QueueConstantForRabbitComunication.RequestDBExechange)
+
+            return await task.Task;
+        }
+
 
     }
 }

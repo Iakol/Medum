@@ -1,7 +1,7 @@
 ﻿using MediumDataBaseManagerAzureApi.Models.ContentState;
 using MediumDataBaseManagerAzureApi.Models.User;
 
-namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
+namespace MediumDataBaseManagerAzureApi.Models.ManyToMany.StoryWrapperManyToMany
 {
     public class StoryToAuthorsConectorModel
     {

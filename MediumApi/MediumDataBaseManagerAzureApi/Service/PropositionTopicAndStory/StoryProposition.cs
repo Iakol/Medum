@@ -2,6 +2,7 @@
 using MediumDataBaseManagerAzureApi.Data;
 using MediumDataBaseManagerAzureApi.DTO.Story;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace MediumDataBaseManagerAzureApi.Service.PropositionTopicAndStory
@@ -24,9 +25,9 @@ namespace MediumDataBaseManagerAzureApi.Service.PropositionTopicAndStory
             UserForStoryForListDTO userForHistory = new UserForStoryForListDTO 
             {
                 UserId = UserIdOfHistoryAuthror,
-                FullName = _db.Users.FirstOrDefault(u => u.Id == UserIdOfHistoryAuthror).UserName,
-                Tag = _db.Users.FirstOrDefault(u => u.Id == UserIdOfHistoryAuthror).Tag,
-                UsersImage = _db.UserProfiles.FirstOrDefault(u => u.UserWrapperId == UserIdOfHistoryAuthror).LogoUrl,
+                FullName = (await _db.Users.FirstOrDefaultAsync(u => u.UserWrapperId == UserIdOfHistoryAuthror)).UserName,
+                Tag = (await _db.UserWrappers.FirstOrDefaultAsync(u => u.UserId == UserIdOfHistoryAuthror)).Tag,
+                UsersImage = (await _db.UserProfiles.FirstOrDefaultAsync(u => u.UserWrapperId == UserIdOfHistoryAuthror)).LogoUrl,
 
             };
             return userForHistory;

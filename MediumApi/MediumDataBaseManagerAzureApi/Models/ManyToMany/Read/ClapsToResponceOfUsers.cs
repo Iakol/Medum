@@ -1,6 +1,6 @@
 ﻿using MediumDataBaseManagerAzureApi.Models.User;
 
-namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
+namespace MediumDataBaseManagerAzureApi.Models.ManyToMany.Read
 {
     public class ClapsToResponceOfUsers
     {
@@ -9,8 +9,8 @@ namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
 
         public int ClapsCount { get; set; }
 
-        public ResponceListToReaderList Responce { get; set; }
+        public Responce Responce { get; set; }
         public UserWrapper User { get; set; }
 
-     }
+    }
 }
