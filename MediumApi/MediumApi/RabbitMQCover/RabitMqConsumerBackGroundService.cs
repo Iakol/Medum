@@ -8,8 +8,8 @@ namespace MediumApi.RabbitMQCover
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _rabitManager.CreateConsumerForChanelToQueue(await _rabitManager.GetRetriveChannelChannelToRabit(), QueueConstantForRabbitComunication.StoryCredQueue + QueueConstantForRabbitComunication.ServiceRabitID);
-            await _rabitManager.CreateConsumerForChanelToQueue(await _rabitManager.GetRetriveChannelChannelToRabit(), QueueConstantForRabbitComunication.UpdateClapsAndResponseQueue + QueueConstantForRabbitComunication.ServiceRabitID);
+            await _rabitManager.CreateConsumerForChanelToQueue(await _rabitManager.GetRetriveChannelChannelToRabit(), QueueConstantForRabbitComunication.StoryCredQueue);
+            await _rabitManager.CreateConsumerForChanelToQueue(await _rabitManager.GetRetriveChannelChannelToRabit(), QueueConstantForRabbitComunication.UpdateClapsAndResponseQueue);
 
         }
     }

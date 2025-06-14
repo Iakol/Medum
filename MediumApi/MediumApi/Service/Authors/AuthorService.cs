@@ -34,7 +34,7 @@ namespace MediumApi.Service.Authors
 
         public async Task<List<string>> GetAuthorFollowingAuthors(string authorId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetAuthorFollowingAuthors);
+            string json = await _rabbitClient.DataBaseCommonRequest( authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetAuthorFollowingAuthors);
 
             return JsonSerializer.Deserialize<List<string>>(json);
             
@@ -42,7 +42,7 @@ namespace MediumApi.Service.Authors
 
         public async Task<List<int>> GetReadingIdsListByAuthor(string authorId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetReadingListsByAuthor);
+            string json = await _rabbitClient.DataBaseCommonRequest(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetReadingListsByAuthor);
 
             return JsonSerializer.Deserialize<List<int>>(json);
         }
@@ -68,9 +68,42 @@ namespace MediumApi.Service.Authors
             JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
             if (!JsonResult.GetProperty("Status").Equals("OK"))
             {
-                await FollowAuthorByAuthorId(authorId, userId);
+                await MuteAuthorByAuthorId(authorId, userId);
             }
         }
+
+        public async Task UnMuteAuthorByAuthorId(string authorId, string userId)
+        {
+            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.MuteAuthor);
+
+            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
+            if (!JsonResult.GetProperty("Status").Equals("OK"))
+            {
+                await UnMuteAuthorByAuthorId(authorId, userId);
+            }
+        }
+
+        public async Task UnBlockAuthorByAuthorId(string authorId, string userId)
+        {
+            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.UnBlockAuthor);
+
+            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
+            if (!JsonResult.GetProperty("Status").Equals("OK"))
+            {
+                await UnBlockAuthorByAuthorId(authorId, userId);
+            }
+        }
+
+        public async Task UnFollowAuthorByAuthorId(string authorId, string userId)
+        {
+            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.UnFollowAuthor);
+            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
+            if (!JsonResult.GetProperty("Status").Equals("OK"))
+            {
+                await UnFollowAuthorByAuthorId(authorId, userId);
+            }
+        }
+
 
         public async Task<AuthorHeaderDTO> GetUserHeaderStoryId(string storyId)
         {            
@@ -96,6 +129,21 @@ namespace MediumApi.Service.Authors
             AuthorCredDTO User = JsonSerializer.Deserialize<AuthorCredDTO>(json);
 
             return User;
+        }
+
+        
+        public async Task<List<string>> GetMuteAuthorList(string userId)
+        {
+            string json = await _rabbitClient.DataBaseCommonRequest(userId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetMuteAuthorList);
+
+            return JsonSerializer.Deserialize<List<string>>(json);
+        }
+
+        public async Task<List<string>> GetBlockAuthorList(string userId)
+        {
+            string json = await _rabbitClient.DataBaseCommonRequest(userId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetBlockAuthorList);
+
+            return JsonSerializer.Deserialize<List<string>>(json);
         }
 
     }

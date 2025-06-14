@@ -15,6 +15,10 @@ namespace MediumDataBaseManagerAzureApi.Models.User
 
         public List<UserReadingList> ReadingLists { get; set; }
 
+        public List<UserMuteModel> MutedAuthors { get; set; }
+        public List<UserBlockModel> BlockedAuthors { get; set; }
+
+
         public UserMemberShipModel UserMemberShip { get; set; }
         public string Tag { get; set; } // nedd migrate
 

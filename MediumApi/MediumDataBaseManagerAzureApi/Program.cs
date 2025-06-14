@@ -1,5 +1,6 @@
 using MediumDataBaseManagerAzureApi.Data;
-using MediumDataBaseManagerAzureApi.Service.RabitMqGlobalData;
+using MediumDataBaseManagerAzureApi.Rabbit.RabbitService;
+using MediumDataBaseManagerAzureApi.Service.Author;
 using MediumDataBaseManagerAzureApi.Service.RabitMqMediator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,8 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddSingleton<RabitMqMediatorService>();
 builder.Services.AddSingleton<RabitMqGlobalDataClass>();
+builder.Services.AddSingleton<IAuthorService, AuthorService>();
 
 
 

@@ -103,11 +103,9 @@ namespace MediumApi.RabbitMQCover
 
             await _taskDictonaryService.Register(task, properties.CorrelationId);
 
-            await SendMessageWrapper(Message, RoutingKey, properties, QueueConstantForRabbitComunication.RequestDBExechange)
+            await SendMessageWrapper(Message, RoutingKey, properties, QueueConstantForRabbitComunication.RequestDBExechange);
 
             return await task.Task;
         }
-
-
     }
 }

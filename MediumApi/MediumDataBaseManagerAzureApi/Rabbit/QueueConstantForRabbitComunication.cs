@@ -1,21 +1,21 @@
-﻿namespace MediumApi.RabbitMQCover
+﻿namespace MediumDataBaseManagerAzureApi.Rabbit
 {
     public static class QueueConstantForRabbitComunication
     {
         public static readonly string ServiceRabitID = Guid.NewGuid().ToString();
         //Reply To Queue
 
-        public static readonly string StoryCredQueue = "q.StoryListQueue.WorkerID=" + ServiceRabitID;
+        public const string StoryCredQueue = "q.StoryListQueue.WorkerID=";
 
-        public static readonly string UpdateClapsAndResponseQueue = "q.UpdateClapsAndResponseQueue.WorkerID=" + ServiceRabitID;
+        public const string UpdateClapsAndResponseQueue = "q.UpdateClapsAndResponseQueue.WorkerID=";
 
-        public static readonly string AuthorCredQueue = "q.AuthorCredQueue.WorkerID=" + ServiceRabitID;
+        public const string AuthorCredQueue = "q.AuthorCredQueue.WorkerID=";
 
-        public static readonly string TopicQueue = "q.TopicQueue.WorkerID=" + ServiceRabitID;
+        public const string TopicQueue = "q.TopicQueue.WorkerID=";
 
-        public static readonly string ReadingListQueue = "q.ReadingListQueue.WorkerID=" + ServiceRabitID;
+        public const string ReadingListQueue = "q.ReadingListQueue.WorkerID=";
 
-        public static readonly string ReadingHistoryQueue = "q.ReadingHistoryQueue.WorkerID=" + ServiceRabitID;
+        public const string ReadingHistoryQueue = "q.ReadingHistoryQueue.WorkerID=";
 
 
 
@@ -46,7 +46,7 @@
         public const string GetClapsByStory = "GetClapsByStory";
         public const string GetClapsByReadingList = "GetClapsByReadingList";
 
-        
+
 
         //Author
         public const string BlockAuthor = "BlockAuthor";

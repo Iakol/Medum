@@ -30,6 +30,8 @@ namespace MediumDataBaseManagerAzureApi.Data
         public DbSet<UserReadingList> UsersReadingLists { get; set; }
         public DbSet<UserMemberShipModel> UserMemberShips { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<UserBlockModel> UserBlocks { get; set; }
+        public DbSet<UserMuteModel> UserMutes { get; set; }
 
         //Topic
         public DbSet<TopicModel> Topics{ get; set; }
@@ -71,6 +73,8 @@ namespace MediumDataBaseManagerAzureApi.Data
             modelBuilder.ApplyConfiguration(new UserReadingList_FluentClass());
             modelBuilder.ApplyConfiguration(new UserMemberShipModel_FluentClass());
             modelBuilder.ApplyConfiguration(new UserProfile_FluentClass());
+            modelBuilder.ApplyConfiguration(new UserBlock_FluentClass());
+            modelBuilder.ApplyConfiguration(new UserMute_FluentClass());
 
 
 
