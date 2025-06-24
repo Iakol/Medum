@@ -60,7 +60,7 @@ namespace MediumApi.RabbitMQCover
             await ToAddchanel.QueueDeclareAsync(queue: QueueName, durable: false, exclusive: true, autoDelete: true, arguments: null);
         }
 
-        public async Task CreateConsumerForChanelToQueue(IChannel ToAddchanel, string QueueName) 
+        public async Task CreateConsumerForChanelToQueue<TExpectedValue>(IChannel ToAddchanel, string QueueName) 
         {
             await CreateNewQueueForChanel(ToAddchanel, QueueName);
             var consumer = new AsyncEventingBasicConsumer(ToAddchanel);
@@ -94,7 +94,7 @@ namespace MediumApi.RabbitMQCover
 
         }
 
-        public async Task<string> DataBaseCommonRequest(string Message,string ReplyQueue,string RoutingKey) 
+        public async Task<TExpectedValue> DataBaseCommonRequest<TExpectedValue>(string Message,string ReplyQueue,string RoutingKey) 
         {
             TaskCompletionSource<string> task = new TaskCompletionSource<string>();
             BasicProperties properties = new BasicProperties();
@@ -105,7 +105,12 @@ namespace MediumApi.RabbitMQCover
 
             await SendMessageWrapper(Message, RoutingKey, properties, QueueConstantForRabbitComunication.RequestDBExechange);
 
-            return await task.Task;
+            if (typeof(TExpectedValue) != typeof(string)) {
+                return JsonSerializer.Deserialize<TExpectedValue>(await task.Task);
+            }
+            return (TExpectedValue)(object)await task.Task;
+
+            
         }
     }
 }

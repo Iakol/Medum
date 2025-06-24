@@ -10,6 +10,6 @@ namespace MediumDataBaseManagerAzureApi.Models.ManyToMany
         public string UserReadingListId { get; set; }
         public UserReadingList userReadingList { get; set; }
         public ContentStateStoryWrapperModel SaveStoryInList { get; set; }
-        public string UserNoteForSaveStory { get; set; }
+        public string UserNoteForSaveStory { get; set; } = string.Empty;
     }
 }

@@ -8,13 +8,13 @@ namespace MediumApi.Service.Authors
 
         public Task<List<string>> GetRecomendationAuthorForUser(string userId);
 
-        public Task MuteAuthorByAuthorId(string authorId, string userId);
-        public Task BlockAuthorByAuthorId(string authorId, string userId);
-        public Task FollowAuthorByAuthorId(string authorId, string userId);
+        public Task<string> MuteAuthorByAuthorId(string authorId, string userId);
+        public Task<string> BlockAuthorByAuthorId(string authorId, string userId);
+        public Task<string> FollowAuthorByAuthorId(string authorId, string userId);
 
-        public Task UnMuteAuthorByAuthorId(string authorId, string userId);
-        public Task UnBlockAuthorByAuthorId(string authorId, string userId);
-        public Task UnFollowAuthorByAuthorId(string authorId, string userId);
+        public Task<string> UnMuteAuthorByAuthorId(string authorId, string userId);
+        public Task<string> UnBlockAuthorByAuthorId(string authorId, string userId);
+        public Task<string> UnFollowAuthorByAuthorId(string authorId, string userId);
 
         public Task<List<string>> GetMuteAuthorList(string userId);
         public Task<List<string>> GetBlockAuthorList(string userId);

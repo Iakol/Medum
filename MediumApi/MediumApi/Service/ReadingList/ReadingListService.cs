@@ -9,7 +9,7 @@ namespace MediumApi.Service.ReadingList
         public async Task<bool> AddStoryToReadingListByUser(string userId, string storyId, string readingListId)
         {
             string Message = JsonSerializer.Serialize(new { user = userId, story = storyId, readingList = readingListId });
-            string json = await _rabbitClient.DataBaseCommonRequest(Message, QueueConstantForRabbitComunication.ReadingListQueue, QueueConstantForRabbitComunication.AddStoryToReadingListByUser)
+            string json = await _rabbitClient.DataBaseCommonRequest<string>(Message, QueueConstantForRabbitComunication.ReadingListQueue, QueueConstantForRabbitComunication.AddStoryToReadingListByUser);
             JsonElement result = JsonSerializer.Deserialize<JsonElement>(Message);
 
             if (!result.GetProperty("Status").Equals("Ok"))
@@ -25,7 +25,7 @@ namespace MediumApi.Service.ReadingList
 
         public async Task<bool> CreateReadingListByUser(string userId, CreateReadingListDTO readingListToCreate)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(readingListToCreate), QueueConstantForRabbitComunication.ReadingListQueue, QueueConstantForRabbitComunication.CreateReadingListByUser);
+            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { userId,readingListToCreate }), QueueConstantForRabbitComunication.ReadingListQueue, QueueConstantForRabbitComunication.CreateReadingListByUser);
             JsonElement result = JsonSerializer.Deserialize<JsonElement>(json);
             if (!result.GetProperty("Status").Equals("Ok"))
             {
@@ -117,5 +117,21 @@ namespace MediumApi.Service.ReadingList
             }
             return true;
         }
+        public async Task<ReadingListDTO> GetReadingListById(string ReadingListId)
+        {
+            string json = await _rabbitClient.DataBaseCommonRequest(ReadingListId, QueueConstantForRabbitComunication.ReadingListQueue, QueueConstantForRabbitComunication.GetReadingListById);
+            JsonElement result = JsonSerializer.Deserialize<JsonElement>(json);
+
+            if (result.TryGetProperty("Id", out _))
+            {
+                ReadingListDTO readingList = JsonSerializer.Deserialize<ReadingListDTO>(result);
+
+                return readingList;
+            }
+
+            return null;
+        }
+
+
     }
 }

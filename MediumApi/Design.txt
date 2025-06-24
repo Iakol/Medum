@@ -1,0 +1,17 @@
+﻿Frontend (RTK Query)
+    ↓ HTTP (GET /data/{id})
+Backend (ASP.NET Core API)
+    → Перевіряє Redis (асинхронно, з таймаутом)
+        → Якщо знайдено — повертає
+        → Якщо ні — відправляє запит у RabbitMQ (з correlationId)
+            → Зберігає correlationId у Redis як `pending:<id>` (status = pending)
+            → Повертає 202 Accepted з correlationId
+    ↘
+DB Service (RabbitMQ Consumer)
+    → Обробляє запит, читає з БД
+    → Повертає результат у reply queue (з тим самим correlationId)
+    → Backend listener оновлює Redis: status = done, result = ...
+Frontend
+    → Polling (RTK polling або setInterval) GET /status/{correlationId}
+        → Отримує статус та результат
+        → Оновлює Redux store

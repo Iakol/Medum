@@ -10,140 +10,125 @@ namespace MediumApi.Service.Authors
     public class AuthorService(RabitMqGlobalDataClass _rabbitClient) : IAuthorService
     {
 
-        public async Task BlockAuthorByAuthorId(string authorId, string userId)
+        public async Task<string> BlockAuthorByAuthorId(string authorId, string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.BlockAuthor);
-        
-            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
-            if (!JsonResult.GetProperty("Status").Equals("OK")) 
+            string result = await _rabbitClient.DataBaseCommonRequest<string>(JsonSerializer.Serialize(new {  authorId, userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.BlockAuthor);
+
+            if (result.Equals("OK") || result.Equals("AlreadyBlocked")) 
             {
-                await BlockAuthorByAuthorId(authorId, userId);
+                return "OK";
             }
+            return result;
         }
 
-        public async Task FollowAuthorByAuthorId(string authorId, string userId)
+        public async Task<string> FollowAuthorByAuthorId(string authorId, string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.FollowAuthor);
+            string result = await _rabbitClient.DataBaseCommonRequest<string>(JsonSerializer.Serialize(new { authorId, userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.FollowAuthor);
 
-            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
-            if (!JsonResult.GetProperty("Status").Equals("OK"))
+            if (result.Equals("OK") || result.Equals("AlreadyFollowed"))
             {
-                await FollowAuthorByAuthorId(authorId, userId);
+                return "OK";
             }
+
+            return result;
         }
 
         public async Task<List<string>> GetAuthorFollowingAuthors(string authorId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest( authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetAuthorFollowingAuthors);
-
-            return JsonSerializer.Deserialize<List<string>>(json);
-            
+            return await _rabbitClient.DataBaseCommonRequest<List<string>>( authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetAuthorFollowingAuthors);            
         }
 
         public async Task<List<int>> GetReadingIdsListByAuthor(string authorId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetReadingListsByAuthor);
+            return await _rabbitClient.DataBaseCommonRequest<List<int>>(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetReadingListsByAuthor);
 
-            return JsonSerializer.Deserialize<List<int>>(json);
         }
 
         public async Task<List<string>> GetRecomendationAuthorForUser(string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(userId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetRecomendationAuthorForUser);
+            return await _rabbitClient.DataBaseCommonRequest<List<string>>(userId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetRecomendationAuthorForUser);
 
-            return JsonSerializer.Deserialize<List<string>>(json);
         }
 
         public async Task<List<string>> GetStoryIdsListByAuthor(string authorId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetStoryListByAuthor);
+            return await _rabbitClient.DataBaseCommonRequest<List<string>>(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetStoryListByAuthor);
 
-            return JsonSerializer.Deserialize<List<string>>(json);
         }
 
-        public async Task MuteAuthorByAuthorId(string authorId, string userId)
+        public async Task<string> MuteAuthorByAuthorId(string authorId, string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.MuteAuthor);
+            string result = await _rabbitClient.DataBaseCommonRequest<string>(JsonSerializer.Serialize(new { authorId,userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.MuteAuthor);
 
-            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
-            if (!JsonResult.GetProperty("Status").Equals("OK"))
+            if (result.Equals("OK") || result.Equals("AlreadyMuted"))
             {
-                await MuteAuthorByAuthorId(authorId, userId);
+                return "OK";
             }
+
+            return result;
         }
 
-        public async Task UnMuteAuthorByAuthorId(string authorId, string userId)
+        public async Task<string> UnMuteAuthorByAuthorId(string authorId, string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.MuteAuthor);
+            string result = await _rabbitClient.DataBaseCommonRequest<string>(JsonSerializer.Serialize(new { authorId, userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.MuteAuthor);
 
-            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
-            if (!JsonResult.GetProperty("Status").Equals("OK"))
+            if (result.Equals("OK"))
             {
-                await UnMuteAuthorByAuthorId(authorId, userId);
+                return "OK";
             }
+
+            return result;
         }
 
-        public async Task UnBlockAuthorByAuthorId(string authorId, string userId)
+        public async Task<string> UnBlockAuthorByAuthorId(string authorId, string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.UnBlockAuthor);
+            string result = await _rabbitClient.DataBaseCommonRequest<string>(JsonSerializer.Serialize(new { authorId, userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.UnBlockAuthor);
 
-            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
-            if (!JsonResult.GetProperty("Status").Equals("OK"))
+            if (result.Equals("OK"))
             {
-                await UnBlockAuthorByAuthorId(authorId, userId);
+                return "OK";
             }
+
+            return result;
         }
 
-        public async Task UnFollowAuthorByAuthorId(string authorId, string userId)
+        public async Task<string> UnFollowAuthorByAuthorId(string authorId, string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(JsonSerializer.Serialize(new { author = authorId, user = userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.UnFollowAuthor);
-            JsonElement JsonResult = JsonSerializer.Deserialize<JsonElement>(json);
-            if (!JsonResult.GetProperty("Status").Equals("OK"))
+            string result = await _rabbitClient.DataBaseCommonRequest<string>(JsonSerializer.Serialize(new { authorId, userId }), QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.UnFollowAuthor);
+            if (result.Equals("OK"))
             {
-                await UnFollowAuthorByAuthorId(authorId, userId);
+                return "OK";
             }
+
+            return result;
         }
 
 
         public async Task<AuthorHeaderDTO> GetUserHeaderStoryId(string storyId)
         {            
-            string json = await _rabbitClient.DataBaseCommonRequest(storyId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetUserHeaderStory);
-
-            AuthorHeaderDTO User = JsonSerializer.Deserialize<AuthorHeaderDTO>(json);
-
-            return User;
+            return await _rabbitClient.DataBaseCommonRequest< AuthorHeaderDTO>(storyId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetUserHeaderStory);
         }
 
         public async Task<AuthorHeaderDTO> GetUserHeader(string authorId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetUserHeader);
-
-            AuthorHeaderDTO User = JsonSerializer.Deserialize<AuthorHeaderDTO>(json);
-
-            return User;
+            return await _rabbitClient.DataBaseCommonRequest<AuthorHeaderDTO>(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetUserHeader);
         }
         public async Task<AuthorCredDTO> GetUserCred(string authorId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.UserCred);
+            return await _rabbitClient.DataBaseCommonRequest<AuthorCredDTO>(authorId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.UserCred);
 
-            AuthorCredDTO User = JsonSerializer.Deserialize<AuthorCredDTO>(json);
-
-            return User;
         }
 
         
         public async Task<List<string>> GetMuteAuthorList(string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(userId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetMuteAuthorList);
-
-            return JsonSerializer.Deserialize<List<string>>(json);
+            return await _rabbitClient.DataBaseCommonRequest<List<string>>(userId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetMuteAuthorList);
         }
 
         public async Task<List<string>> GetBlockAuthorList(string userId)
         {
-            string json = await _rabbitClient.DataBaseCommonRequest(userId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetBlockAuthorList);
+            return await _rabbitClient.DataBaseCommonRequest<List<string>>(userId, QueueConstantForRabbitComunication.AuthorCredQueue, QueueConstantForRabbitComunication.GetBlockAuthorList);
 
-            return JsonSerializer.Deserialize<List<string>>(json);
         }
 
     }

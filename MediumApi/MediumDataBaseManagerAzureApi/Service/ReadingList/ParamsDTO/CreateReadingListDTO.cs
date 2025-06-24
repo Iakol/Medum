@@ -1,4 +1,4 @@
-﻿namespace MediumApi.DTO.ReadingListDTO
+﻿namespace MediumDataBaseManagerAzureApi.Service.ReadingList.ParamsDTO
 {
     public class CreateReadingListDTO
     {
@@ -7,5 +7,6 @@
         public string? Description { get; set; }
         public bool isPrivate { get; set; }
         public string userId { get; set; }
+
     }
 }

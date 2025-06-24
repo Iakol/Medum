@@ -38,6 +38,7 @@
         public const string GetResponce = "GetResponce";
         public const string DeleteResponce = "DeleteResponce";
         public const string GetResponceCount = "GetResponceCount";
+        public const string GetCountOfClapsForResponce = "GetCountOfClapsForResponce";
 
         //Claps
         public const string AddClapsToResponce = "AddClapsToResponce";
@@ -64,6 +65,7 @@
         public const string GetUserCred = "GetUserCred";
         public const string GetMuteAuthorList = "GetMuteAuthorList";
         public const string GetBlockAuthorList = "GetBlockAuthorList";
+        public const string GetReadingListById = "GetReadingListById";
 
         //Topic
         public const string GetRecomendationTopicsForUser = "GetRecomendationTopicsForUser";

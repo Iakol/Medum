@@ -84,6 +84,14 @@
         public const string GetUserSavedReadingLists = "GetUserSavedReadingLists";
         public const string UpdateNoteToStoryInReadingList = "UpdateNoteToStoryInReadingList";
         public const string UpdateReadingListByUser = "UpdateReadingListByUser";
+        public const string GetReadingListById = "GetReadingListById";
+        public const string DeleteSaveReadingList = "DeleteSaveReadingList";
+        public const string SaveAuthorReadingList = "SaveAuthorReadingList";
+        public const string UnSaveAuthorReadingList = "UnSaveAuthorReadingList";
+        public const string GetReadingListByIdList = "GetReadingListByIdList";
+
+
+
 
 
 

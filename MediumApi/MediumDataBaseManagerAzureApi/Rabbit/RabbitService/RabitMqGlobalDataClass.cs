@@ -74,7 +74,7 @@ namespace MediumDataBaseManagerAzureApi.Rabbit.RabbitService
             await (await GetRetriveChannelChannelToRabit()).QueueBindAsync(QueueName, ExhangeName, QueueName);
         }
 
-        public async Task CreateConsumerForChanelToQueue(string QueueName, Func<string, Task<string>> processingTask,string? ExhangeName)
+        public async Task CreateConsumerForChanelToQueue<TRequest,TResponce>(string QueueName, Func<TRequest,Task<TResponce>> processingTask, string? ExhangeName)
         {
             if (!ExhangeName.IsNullOrEmpty()) 
             {
@@ -113,12 +113,29 @@ namespace MediumDataBaseManagerAzureApi.Rabbit.RabbitService
 
         }
 
-        public async Task DataBaseCommonResponce(string RetriveMessage, IReadOnlyBasicProperties retriveProps,Func<string,Task<string>> processingTask)
+        public async Task DataBaseCommonResponce<TRequest,TResponce>(string RetriveMessage, IReadOnlyBasicProperties retriveProps,Func<TRequest, Task<TResponce>> processingTask)
         {
-            string processingResult = await processingTask(RetriveMessage);
+            TRequest request;
+            if (typeof(TRequest) != typeof(string))
+            {
+                 request = JsonSerializer.Deserialize<TRequest>(RetriveMessage);
+            }
+            else{
+                 request = (TRequest)(object)RetriveMessage;
+            }
+            TResponce processingResult =  await processingTask(request);
+            string ResponceMessage;
+            if (typeof(TResponce) != typeof(string))
+            {
+                ResponceMessage = JsonSerializer.Serialize(processingResult);
+            }
+            else
+            {
+                ResponceMessage = (string)(object)processingResult;
+            }
             BasicProperties sendProps = new BasicProperties();
             sendProps.CorrelationId = retriveProps.CorrelationId;
-            await SendMessageWrapper(processingResult, retriveProps.ReplyTo, sendProps, null);
+            await SendMessageWrapper(ResponceMessage, retriveProps.ReplyTo, sendProps, null);
         }
 
 

@@ -41,6 +41,7 @@ namespace MediumDataBaseManagerAzureApi.Data
         public DbSet<StoryToAuthorsConectorModel> StoryToAuthorsConectors { get; set; }
         public DbSet<ReadingList_UserWrapperToStoryId> ReadingList_UserWrapperToStoryIds { get; set; }
         public DbSet<FollowModel> Follows { get; set; }
+        public DbSet<SavedUsersReadingList_UserWraperToUserReadingList> SavedUsersReadingLists { get; set; }
             //--Readers
         public DbSet<ReadersModel> Readers { get; set; }
         public DbSet<Responce> Responces { get; set; }
@@ -87,6 +88,9 @@ namespace MediumDataBaseManagerAzureApi.Data
             modelBuilder.ApplyConfiguration(new StoryToAuthorsConectorModel_FluentClass());
             modelBuilder.ApplyConfiguration(new ReadingList_UserWrapperToStoryId_FluentClass());
             modelBuilder.ApplyConfiguration(new FollowModel_FluentClass());
+            modelBuilder.ApplyConfiguration(new SavedUsersReadingList_UserWraperToUserReadingList_FluentClass());
+
+            
                 //--Read
             modelBuilder.ApplyConfiguration(new ReadersModel_FluentClass());
             modelBuilder.ApplyConfiguration(new Responce_FluentClass());
